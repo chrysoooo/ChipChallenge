@@ -15,6 +15,8 @@ public class TileManager {
     public TileManager(GamePanel gp) {
         this.gp = gp;
         tile = new Tile[9];
+
+        getTileImage();
     }
 
     public void getTileImage(){
