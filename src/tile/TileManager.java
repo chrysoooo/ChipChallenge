@@ -31,14 +31,6 @@ public class TileManager {
             tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/wall.png"));
             tile[1].collision = true;
 
-            tile[2] = new Tile();
-            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/water.png"));
-            tile[2].collision = true;
-
-            tile[3] = new Tile();
-            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/fire1.png"));
-            //tile[3].collision = true;
-
             tile[4] = new Tile();
             tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ffup.png")); // force floor tiles
 
@@ -50,12 +42,6 @@ public class TileManager {
 
             tile[7] = new Tile();
             tile[7].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ffright.png"));
-
-            tile[8] = new Tile();
-            tile[8].image = ImageIO.read(getClass().getResourceAsStream("/objects/door_blue.png"));
-
-            tile[9] = new Tile();
-            tile[9].image = ImageIO.read(getClass().getResourceAsStream("/objects/door_red.png"));
 
             tile[10] = new Tile();
             tile[10].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ice1.png")); // ice tiles

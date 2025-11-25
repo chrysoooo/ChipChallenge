@@ -41,5 +41,85 @@ public class AssetSetter {
         gp.obj[7] = new Key_Blue();
         gp.obj[7].worldX = 11 * gp.tileSize;
         gp.obj[7].worldY = 11 * gp.tileSize;
+
+        gp.obj[8] = new FireBoots();
+        gp.obj[8].worldX = 6 * gp.tileSize;
+        gp.obj[8].worldY = 14 * gp.tileSize;
+
+        gp.obj[9] = new Microchip();
+        gp.obj[9].worldX = 7 * gp.tileSize;
+        gp.obj[9].worldY = 14 * gp.tileSize;
+
+        gp.obj[10] = new Water();
+        gp.obj[10].worldX = 7 * gp.tileSize;
+        gp.obj[10].worldY = 13 * gp.tileSize;
+
+        gp.obj[11] = new Water();
+        gp.obj[11].worldX = 8 * gp.tileSize;
+        gp.obj[11].worldY = 13 * gp.tileSize;
+
+        gp.obj[12] = new Water();
+        gp.obj[12].worldX = 8 * gp.tileSize;
+        gp.obj[12].worldY = 14 * gp.tileSize;
+
+        gp.obj[13] = new Water();
+        gp.obj[13].worldX = 8 * gp.tileSize;
+        gp.obj[13].worldY = 15 * gp.tileSize;
+
+        gp.obj[14] = new Water();
+        gp.obj[14].worldX = 7 * gp.tileSize;
+        gp.obj[14].worldY = 15 * gp.tileSize;
+
+        gp.obj[15] = new Water();
+        gp.obj[15].worldX = 6 * gp.tileSize;
+        gp.obj[15].worldY = 15 * gp.tileSize;
+
+        gp.obj[16] = new Water();
+        gp.obj[16].worldX = 5 * gp.tileSize;
+        gp.obj[16].worldY = 15 * gp.tileSize;
+
+        gp.obj[17] = new Water();
+        gp.obj[17].worldX = 5 * gp.tileSize;
+        gp.obj[17].worldY = 14 * gp.tileSize;
+
+        gp.obj[18] = new Water();
+        gp.obj[18].worldX = 5 * gp.tileSize;
+        gp.obj[18].worldY = 13 * gp.tileSize;
+
+        gp.obj[19] = new Water();
+        gp.obj[19].worldX = 6 * gp.tileSize;
+        gp.obj[19].worldY = 13 * gp.tileSize;
+
+        gp.obj[20] = new Fire();
+        gp.obj[20].worldX = 6 * gp.tileSize;
+        gp.obj[20].worldY = 8 * gp.tileSize;
+
+        gp.obj[21] = new Fire();
+        gp.obj[21].worldX = 5 * gp.tileSize;
+        gp.obj[21].worldY = 8 * gp.tileSize;
+
+        gp.obj[22] = new Fire();
+        gp.obj[22].worldX = 7 * gp.tileSize;
+        gp.obj[22].worldY = 8 * gp.tileSize;
+
+        gp.obj[23] = new Fire();
+        gp.obj[23].worldX = 8 * gp.tileSize;
+        gp.obj[23].worldY = 8 * gp.tileSize;
+
+        gp.obj[24] = new Fire();
+        gp.obj[24].worldX = 6 * gp.tileSize;
+        gp.obj[24].worldY = 9 * gp.tileSize;
+
+        gp.obj[25] = new Fire();
+        gp.obj[25].worldX = 5 * gp.tileSize;
+        gp.obj[25].worldY = 9 * gp.tileSize;
+
+        gp.obj[26] = new Fire();
+        gp.obj[26].worldX = 7 * gp.tileSize;
+        gp.obj[26].worldY = 9 * gp.tileSize;
+
+        gp.obj[27] = new Fire();
+        gp.obj[27].worldX = 8 * gp.tileSize;
+        gp.obj[27].worldY = 9 * gp.tileSize;
     }
 }
