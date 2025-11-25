@@ -9,14 +9,20 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel implements Runnable {
 
     // SCREEN SETTINGS
-    final int originalTileSize = 32; // 32x32 tile.
-    final int scale = 1;
+    final int originalTileSize = 16; // 32x32 tile.
+    final int scale = 3;
 
-    public final int tileSize = originalTileSize * scale; // 48x48 tile.
+    public final int tileSize = originalTileSize * scale;
     public final int maxScreenCol = 20;
-    public final int maxScreenRow = 20; // ratio is 2x2
-    public final int screenWidth = tileSize * maxScreenCol; //768 pixels
-    public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
+    public final int maxScreenRow = 12;
+    public final int screenWidth = tileSize * maxScreenCol;
+    public final int screenHeight = tileSize * maxScreenRow;
+
+    // WORLD SETTINGS
+    public final int maxWorldCol = 20;
+    public final int maxWorldRow = 20;
+    public final int worldWidth = tileSize * maxWorldCol;
+    public final int worldHeight = tileSize * maxWorldRow;
 
     //FPS
     int FPS = 60;
@@ -24,7 +30,8 @@ public class GamePanel extends JPanel implements Runnable {
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
     Thread gameThread; // starts the game and keeps it running
-    Player player = new Player(this, keyH);
+    public CollisionChecker cChecker = new CollisionChecker(this);
+    public Player player = new Player(this, keyH);
 
     public GamePanel(){
 
