@@ -52,10 +52,10 @@ public class TileManager {
             tile[7].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ffright.png"));
 
             tile[8] = new Tile();
-            tile[8].image = ImageIO.read(getClass().getResourceAsStream("/tiles/door_blue.png"));
+            tile[8].image = ImageIO.read(getClass().getResourceAsStream("/objects/door_blue.png"));
 
             tile[9] = new Tile();
-            tile[9].image = ImageIO.read(getClass().getResourceAsStream("/tiles/door_red.png"));
+            tile[9].image = ImageIO.read(getClass().getResourceAsStream("/objects/door_red.png"));
 
             tile[10] = new Tile();
             tile[10].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ice1.png")); // ice tiles
