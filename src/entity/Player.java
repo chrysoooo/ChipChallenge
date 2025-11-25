@@ -24,10 +24,10 @@ public class Player extends Entity {
 
         // COLLISION BOX OF PLAYER
         solidArea = new Rectangle();
-        solidArea.x = 8;
-        solidArea.y = 16;
-        solidArea.width = 32;
-        solidArea.height = 32;
+        solidArea.x = 9;
+        solidArea.y = 9;
+        solidArea.width = 10;
+        solidArea.height = 17;
 
         setDefaultValues();
         getPlayerImage();
