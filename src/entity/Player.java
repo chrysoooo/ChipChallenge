@@ -17,6 +17,9 @@ public class Player extends Entity {
 
     int hasKey_Red = 0;
 
+    public boolean sliding = false;
+    public int slideSpeed = 4;
+
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
@@ -58,6 +61,64 @@ public class Player extends Entity {
 
         }catch(IOException e){
             e.printStackTrace();
+        }
+    }
+
+    public void moveInCurrentDirection() {
+    switch(direction) {
+        case "up":    worldY -= slideSpeed; break;
+        case "down":  worldY += slideSpeed; break;
+        case "left":  worldX -= slideSpeed; break;
+        case "right": worldX += slideSpeed; break;
+        }
+    }
+
+    public void checkIceTile() {
+
+    int tileCol = (worldX + solidArea.x) / gp.tileSize;
+    int tileRow = (worldY + solidArea.y) / gp.tileSize;
+
+    int tileNum = gp.tileM.mapTileNum[tileCol][tileRow];
+    tile.Tile currentTile = gp.tileM.tile[tileNum];
+
+    if (!currentTile.isIce) {
+        sliding = false;   
+        return;
+    }
+
+    sliding = true;
+
+    switch(currentTile.iceTurn) {
+
+        case "BOTTOM_RIGHT":
+            if(direction.equals("up"))       direction = "right";
+            else if(direction.equals("left")) direction = "down";
+            break;
+
+        case "BOTTOM_LEFT":
+            if(direction.equals("up"))        direction = "left";
+            else if(direction.equals("right")) direction = "down";
+            break;
+
+        case "UPPER_RIGHT":
+            if(direction.equals("down"))      direction = "right";
+            else if(direction.equals("left")) direction = "up";
+            break;
+
+        case "UPPER_LEFT":
+            if(direction.equals("down"))     direction = "left";
+            else if(direction.equals("right")) direction = "up";
+            break;
+    }
+
+        collisionOn = false;
+        gp.cChecker.checkTile(this);
+
+        if(!collisionOn) {
+            moveInCurrentDirection();
+        }
+        else {
+            sliding = false;  
         }
     }
 
@@ -104,7 +165,7 @@ public class Player extends Entity {
                         break;
                 }
             }
-
+            
             spriteCounter++;
             if(spriteCounter > 12){
                 if(spriteNum == 1){
@@ -116,6 +177,13 @@ public class Player extends Entity {
                 spriteCounter = 0;
             }
         }
+        else {
+            if (sliding) {
+                checkIceTile();
+            }
+        }
+
+        checkIceTile();
     }
 
     public void pickUpObject(int i){

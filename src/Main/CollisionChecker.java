@@ -23,37 +23,76 @@ public class CollisionChecker {
 
         int tileNum1, tileNum2;
 
+        entity.onIce = false;      
+        entity.iceTurn = "NONE"; 
+
         switch(entity.direction){
             case "up":
                 entityTopRow = (entityTopWorldY - entity.speed)/gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
+
                 if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
                     entity.collisionOn = true;
+
+                if(gp.tileM.tile[tileNum1].isIce || gp.tileM.tile[tileNum2].isIce){
+                entity.onIce = true;
+                    if(gp.tileM.tile[tileNum1].isIce && !gp.tileM.tile[tileNum1].iceTurn.equals("NONE"))
+                        entity.iceTurn = gp.tileM.tile[tileNum1].iceTurn;
+                    if(gp.tileM.tile[tileNum2].isIce && !gp.tileM.tile[tileNum2].iceTurn.equals("NONE"))
+                        entity.iceTurn = gp.tileM.tile[tileNum2].iceTurn;
+                    }
                 }
                 break;
             case "down":
                 entityBottomRow = (entityBottomWorldY + entity.speed)/gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
                 tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
+                
                 if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
                     entity.collisionOn = true;
+
+                if(gp.tileM.tile[tileNum1].isIce || gp.tileM.tile[tileNum2].isIce){
+                entity.onIce = true;
+                    if(gp.tileM.tile[tileNum1].isIce && !gp.tileM.tile[tileNum1].iceTurn.equals("NONE"))
+                        entity.iceTurn = gp.tileM.tile[tileNum1].iceTurn;
+                    if(gp.tileM.tile[tileNum2].isIce && !gp.tileM.tile[tileNum2].iceTurn.equals("NONE"))
+                        entity.iceTurn = gp.tileM.tile[tileNum2].iceTurn;
+                    }
                 }
                 break;
             case "left":
                 entityLeftCol = (entityLeftWorldX - entity.speed)/gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
+                
                 if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
                     entity.collisionOn = true;
+
+                if(gp.tileM.tile[tileNum1].isIce || gp.tileM.tile[tileNum2].isIce){
+                entity.onIce = true;
+                    if(gp.tileM.tile[tileNum1].isIce && !gp.tileM.tile[tileNum1].iceTurn.equals("NONE"))
+                        entity.iceTurn = gp.tileM.tile[tileNum1].iceTurn;
+                    if(gp.tileM.tile[tileNum2].isIce && !gp.tileM.tile[tileNum2].iceTurn.equals("NONE"))
+                        entity.iceTurn = gp.tileM.tile[tileNum2].iceTurn;
+                    }
                 }
                 break;
             case "right":
                 entityRightCol = (entityRightWorldX + entity.speed)/gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
                 tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
+                
                 if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
                     entity.collisionOn = true;
+
+                if(gp.tileM.tile[tileNum1].isIce || gp.tileM.tile[tileNum2].isIce){
+                entity.onIce = true;
+                    if(gp.tileM.tile[tileNum1].isIce && !gp.tileM.tile[tileNum1].iceTurn.equals("NONE"))
+                        entity.iceTurn = gp.tileM.tile[tileNum1].iceTurn;
+                    if(gp.tileM.tile[tileNum2].isIce && !gp.tileM.tile[tileNum2].iceTurn.equals("NONE"))
+                        entity.iceTurn = gp.tileM.tile[tileNum2].iceTurn;
+                    }
                 }
                 break;
         }

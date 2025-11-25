@@ -14,6 +14,9 @@ public class Entity {
     public int spriteCounter = 0;
     public int spriteNum = 1;
 
+    public boolean onIce = false;
+    public String iceTurn = "NONE";
+
     public Rectangle solidArea;
     public int solidAreaDefaultX,  solidAreaDefaultY;
     public boolean collisionOn = false;
