@@ -16,6 +16,7 @@ public class Player extends Entity {
     public final int screenY;
 
     int hasKey_Red = 0;
+    int hasKey_Blue = 0;
 
     public boolean sliding = false;
     public int slideSpeed = 4;
@@ -196,9 +197,19 @@ public class Player extends Entity {
                     gp.obj[i] = null;
                     break;
                 case "Red Door":
-                    if(hasKey_Red > 1){
+                    if(hasKey_Red > 0){
                         gp.obj[i] = null;
                         hasKey_Red--;
+                    }
+                    break;
+                case "Blue Key":
+                    hasKey_Blue++;
+                    gp.obj[i] = null;
+                    break;
+                case "Blue Door":
+                    if(hasKey_Blue > 0){
+                        gp.obj[i] = null;
+                        hasKey_Blue--;
                     }
                     break;
             }

@@ -1,9 +1,6 @@
 package Main;
 
-import obj.Door_Red;
-import obj.Flippers;
-import obj.Key_Red;
-import obj.Microchip;
+import obj.*;
 
 public class AssetSetter {
     GamePanel gp;
@@ -36,5 +33,13 @@ public class AssetSetter {
         gp.obj[5] = new Flippers();
         gp.obj[5].worldX = 16 * gp.tileSize;
         gp.obj[5].worldY = 10 * gp.tileSize;
+
+        gp.obj[6] = new Door_Blue();
+        gp.obj[6].worldX = 14 * gp.tileSize;
+        gp.obj[6].worldY = 9 * gp.tileSize;
+
+        gp.obj[7] = new Key_Blue();
+        gp.obj[7].worldX = 11 * gp.tileSize;
+        gp.obj[7].worldY = 11 * gp.tileSize;
     }
 }
