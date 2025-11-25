@@ -23,8 +23,8 @@ public class CollisionChecker {
 
         int tileNum1, tileNum2;
 
-        entity.onIce = false;      
-        entity.iceTurn = "NONE"; 
+//        entity.onIce = false;
+//        entity.iceTurn = "NONE";
 
         switch(entity.direction){
             case "up":
@@ -35,13 +35,13 @@ public class CollisionChecker {
                 if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
                     entity.collisionOn = true;
 
-                if(gp.tileM.tile[tileNum1].isIce || gp.tileM.tile[tileNum2].isIce){
-                entity.onIce = true;
-                    if(gp.tileM.tile[tileNum1].isIce && !gp.tileM.tile[tileNum1].iceTurn.equals("NONE"))
-                        entity.iceTurn = gp.tileM.tile[tileNum1].iceTurn;
-                    if(gp.tileM.tile[tileNum2].isIce && !gp.tileM.tile[tileNum2].iceTurn.equals("NONE"))
-                        entity.iceTurn = gp.tileM.tile[tileNum2].iceTurn;
-                    }
+//                    if(gp.tileM.tile[tileNum1].isIce || gp.tileM.tile[tileNum2].isIce){
+//                    entity.onIce = true;
+//                        if(gp.tileM.tile[tileNum1].isIce && !gp.tileM.tile[tileNum1].iceTurn.equals("NONE"))
+//                            entity.iceTurn = gp.tileM.tile[tileNum1].iceTurn;
+//                        if(gp.tileM.tile[tileNum2].isIce && !gp.tileM.tile[tileNum2].iceTurn.equals("NONE"))
+//                            entity.iceTurn = gp.tileM.tile[tileNum2].iceTurn;
+//                        }
                 }
                 break;
             case "down":
@@ -52,13 +52,13 @@ public class CollisionChecker {
                 if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
                     entity.collisionOn = true;
 
-                if(gp.tileM.tile[tileNum1].isIce || gp.tileM.tile[tileNum2].isIce){
-                entity.onIce = true;
-                    if(gp.tileM.tile[tileNum1].isIce && !gp.tileM.tile[tileNum1].iceTurn.equals("NONE"))
-                        entity.iceTurn = gp.tileM.tile[tileNum1].iceTurn;
-                    if(gp.tileM.tile[tileNum2].isIce && !gp.tileM.tile[tileNum2].iceTurn.equals("NONE"))
-                        entity.iceTurn = gp.tileM.tile[tileNum2].iceTurn;
-                    }
+//                    if(gp.tileM.tile[tileNum1].isIce || gp.tileM.tile[tileNum2].isIce){
+//                    entity.onIce = true;
+//                        if(gp.tileM.tile[tileNum1].isIce && !gp.tileM.tile[tileNum1].iceTurn.equals("NONE"))
+//                            entity.iceTurn = gp.tileM.tile[tileNum1].iceTurn;
+//                        if(gp.tileM.tile[tileNum2].isIce && !gp.tileM.tile[tileNum2].iceTurn.equals("NONE"))
+//                            entity.iceTurn = gp.tileM.tile[tileNum2].iceTurn;
+//                        }
                 }
                 break;
             case "left":
@@ -69,13 +69,13 @@ public class CollisionChecker {
                 if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
                     entity.collisionOn = true;
 
-                if(gp.tileM.tile[tileNum1].isIce || gp.tileM.tile[tileNum2].isIce){
-                entity.onIce = true;
-                    if(gp.tileM.tile[tileNum1].isIce && !gp.tileM.tile[tileNum1].iceTurn.equals("NONE"))
-                        entity.iceTurn = gp.tileM.tile[tileNum1].iceTurn;
-                    if(gp.tileM.tile[tileNum2].isIce && !gp.tileM.tile[tileNum2].iceTurn.equals("NONE"))
-                        entity.iceTurn = gp.tileM.tile[tileNum2].iceTurn;
-                    }
+//                    if(gp.tileM.tile[tileNum1].isIce || gp.tileM.tile[tileNum2].isIce){
+//                    entity.onIce = true;
+//                        if(gp.tileM.tile[tileNum1].isIce && !gp.tileM.tile[tileNum1].iceTurn.equals("NONE"))
+//                            entity.iceTurn = gp.tileM.tile[tileNum1].iceTurn;
+//                        if(gp.tileM.tile[tileNum2].isIce && !gp.tileM.tile[tileNum2].iceTurn.equals("NONE"))
+//                            entity.iceTurn = gp.tileM.tile[tileNum2].iceTurn;
+//                        }
                 }
                 break;
             case "right":
@@ -86,13 +86,13 @@ public class CollisionChecker {
                 if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
                     entity.collisionOn = true;
 
-                if(gp.tileM.tile[tileNum1].isIce || gp.tileM.tile[tileNum2].isIce){
-                entity.onIce = true;
-                    if(gp.tileM.tile[tileNum1].isIce && !gp.tileM.tile[tileNum1].iceTurn.equals("NONE"))
-                        entity.iceTurn = gp.tileM.tile[tileNum1].iceTurn;
-                    if(gp.tileM.tile[tileNum2].isIce && !gp.tileM.tile[tileNum2].iceTurn.equals("NONE"))
-                        entity.iceTurn = gp.tileM.tile[tileNum2].iceTurn;
-                    }
+//                    if(gp.tileM.tile[tileNum1].isIce || gp.tileM.tile[tileNum2].isIce){
+//                    entity.onIce = true;
+//                        if(gp.tileM.tile[tileNum1].isIce && !gp.tileM.tile[tileNum1].iceTurn.equals("NONE"))
+//                            entity.iceTurn = gp.tileM.tile[tileNum1].iceTurn;
+//                        if(gp.tileM.tile[tileNum2].isIce && !gp.tileM.tile[tileNum2].iceTurn.equals("NONE"))
+//                            entity.iceTurn = gp.tileM.tile[tileNum2].iceTurn;
+//                        }
                 }
                 break;
         }

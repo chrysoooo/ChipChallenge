@@ -59,28 +59,28 @@ public class TileManager {
 
             tile[10] = new Tile();
             tile[10].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ice1.png")); // ice tiles
-            tile[10].isIce = true;
+            //tile[10].isIce = true;
 
             tile[11] = new Tile();
             tile[11].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ice2_brc.png"));
-            tile[11].isIce = true;
-            tile[11].iceTurn = "BOTTOM_RIGHT";
+            //tile[11].isIce = true;
+            //tile[11].iceTurn = "BOTTOM_RIGHT";
 
 
             tile[12] = new Tile();
             tile[12].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ice3_blc.png"));
-            tile[12].isIce = true;
-            tile[12].iceTurn = "BOTTOM_LEFT";
+//            tile[12].isIce = true;
+//            tile[12].iceTurn = "BOTTOM_LEFT";
 
             tile[13] = new Tile();
             tile[13].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ice4_urc.png"));
-            tile[13].isIce = true;
-            tile[13].iceTurn = "UPPER_RIGHT";
+//            tile[13].isIce = true;
+//            tile[13].iceTurn = "UPPER_RIGHT";
 
             tile[14] = new Tile();
             tile[14].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ice5_ulc.png"));
-            tile[14].isIce = true;
-            tile[14].iceTurn = "UPPER_LEFT";
+//            tile[14].isIce = true;
+//            tile[14].iceTurn = "UPPER_LEFT";
 
         }catch(IOException e){
             e.printStackTrace();
