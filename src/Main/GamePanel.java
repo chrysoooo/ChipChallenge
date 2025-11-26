@@ -44,7 +44,6 @@ public class GamePanel extends JPanel implements Runnable {
     // ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
     public SuperObject obj[][] = new SuperObject[maxMap][50]; // can only display up to -- objects at the same time
-    public Entity npc[][] = new Entity[maxMap][5];
     public Entity monster[][] = new Entity[maxMap][5];
 
     public int mapTileNum[][];
@@ -104,12 +103,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void update(){
         player.update();
 
-        for (int i = 0; i < npc[1].length; i++) {
-            if (npc[currentMap][i] != null) {
-                npc[currentMap][i].update();
-            }
-        }
-        for (int i = 0; i < monster[1].length; i++) {
+        for (int i = 0; i < monster[currentMap].length; i++) {
             if (monster[currentMap][i] != null) {
                 monster[currentMap][i].update();
             }
@@ -122,19 +116,19 @@ public class GamePanel extends JPanel implements Runnable {
 
         tileM.draw(g2);
 
-        for(int i = 0; i < obj[1].length; i++){
+        for(int i = 0; i < obj[currentMap].length; i++){
             if(obj[currentMap][i] != null){
                 obj[currentMap][i].draw(g2, this);
             }
         }
 
-        for(int i = 0; i < npc[1].length; i++){
-            if(npc[currentMap][i] != null){
-                npc[currentMap][i].draw(g2);
-            }
-        }
+//        for(int i = 0; i < npc[1].length; i++){
+//            if(npc[currentMap][i] != null){
+//                npc[currentMap][i].draw(g2);
+//            }
+//        }
 
-        for(int i = 0; i < monster[1].length; i++){
+        for(int i = 0; i < monster[currentMap].length; i++){
             if(monster[currentMap][i] != null){
                 monster[currentMap][i].draw(g2);
             }

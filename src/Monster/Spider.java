@@ -14,14 +14,6 @@ public class Spider extends Entity {
         type = 2;
         name = "Spider";
         speed = 3;
-
-        solidArea.x = 3;
-        solidArea.y = 3;
-        solidArea.width = 32;
-        solidArea.height = 32;
-        solidAreaDefaultX = solidArea.x;
-        solidAreaDefaultY = solidArea.y;
-
         getImage();
     }
 
@@ -41,11 +33,12 @@ public class Spider extends Entity {
     }
 
     public void setAction() {
-        actionLockCounter++;
-        if(actionLockCounter == 120){
 
+        actionLockCounter++;
+
+        if(actionLockCounter == 40){
             Random random = new Random();
-            int i =  random.nextInt(100)+1;
+            int i = random.nextInt(100)+1;
 
             if(i <= 25){
                 direction = "up";
@@ -59,7 +52,6 @@ public class Spider extends Entity {
             else if(i > 75 && i <= 100){
                 direction = "right";
             }
-
             actionLockCounter = 0;
         }
     }

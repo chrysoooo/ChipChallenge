@@ -239,9 +239,10 @@ public class Player extends Entity {
             int objIndex = gp.cChecker.checkObject(this, true);
             pickUpObject(objIndex);
 
-            //CHECK NPC COLLISION
-            int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
+//            //CHECK NPC COLLISION
+//            int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
 
+            // CHECK MONSTER COLLISION
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
             contactMonster(monsterIndex);
 
@@ -374,7 +375,7 @@ public class Player extends Entity {
     public void contactMonster(int i){
         if(i != 999){
 
-            if(invincible = false){
+            if(invincible == false){
                 life -= 1;
                 invincible = true;
             }

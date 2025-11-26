@@ -18,16 +18,12 @@ public class Entity {
     public int spriteCounter = 0;
     public int spriteNum = 1;
 
-    public boolean onIce = false;
     public static final int UP = 0;
     public static final int DOWN = 1;
     public static final int LEFT = 2;
     public static final int RIGHT = 3;
 
-    public int face = DOWN;
-//    public String iceTurn = "NONE";
-
-    public Rectangle solidArea =  new Rectangle(0,0,15,15);
+    public Rectangle solidArea =  new Rectangle(10,14,25,20);
     public int solidAreaDefaultX,  solidAreaDefaultY;
     public boolean collisionOn = false;
     public int actionLockCounter = 0;
@@ -53,46 +49,52 @@ public class Entity {
         this.gp = gp;
     }
 
-    public void setAction(){}
+    public void setAction(){ }
 
-    public void update(){
+    public void update() {
+
         setAction();
 
-        if(!collisionOn){
-            collisionOn = false;
-            gp.cChecker.checkTile(this);
-            gp.cChecker.checkObject(this, false);
-            gp.cChecker.checkEntity(this, gp.monster);
-            boolean contactPlayer = gp.cChecker.checkPlayer(this);
+        collisionOn = false;
+        gp.cChecker.checkTile(this);
+        gp.cChecker.checkObject(this, false);
+        gp.cChecker.checkEntity(this, gp.monster);
+        boolean contactPlayer = gp.cChecker.checkPlayer(this);
 
-            if(this.type == 2 && contactPlayer == true){
-                if(gp.player.invincible == false){
-                    gp.player.life -= 1;
-                    gp.player.invincible = true;
-                }
-            }
-
-            if(!collisionOn){
-                switch (direction) {
-                    case "up":    worldY -= speed; break;
-                    case "down":  worldY += speed; break;
-                    case "left":  worldX -= speed; break;
-                    case "right": worldX += speed; break;
-                }
+        // Move only if no collision
+        if (!collisionOn) {
+            switch(direction) {
+                case "up":    worldY -= speed; break;
+                case "down":  worldY += speed; break;
+                case "left":  worldX -= speed; break;
+                case "right": worldX += speed; break;
             }
         }
 
+        // Prevent going out of world bounds
+        if (worldX < 0) worldX = 0;
+        if (worldY < 0) worldY = 0;
+        if (worldX > gp.worldWidth - gp.tileSize) worldX = gp.worldWidth - gp.tileSize;
+        if (worldY > gp.worldHeight - gp.tileSize) worldY = gp.worldHeight - gp.tileSize;
+
+        // Handle contact with player
+        if(this.type == 2 && contactPlayer){
+            if(!gp.player.invincible){
+                gp.player.life -= 1;
+                gp.player.invincible = true;
+            }
+        }
+
+        // Sprite animation
         spriteCounter++;
         if(spriteCounter > 12){
-            if(spriteNum == 1){
-                spriteNum = 2;
-            }
-            else if(spriteNum == 2){
-                spriteNum = 1;
-            }
+            spriteNum = (spriteNum == 1) ? 2 : 1;
             spriteCounter = 0;
         }
     }
+
+
+
     public void draw(Graphics2D g2){
         BufferedImage image = null;
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
@@ -139,6 +141,9 @@ public class Entity {
             }
 
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            // DEBUG: DISPLAY MONSTER COLLISION BOX
+            g2.setColor(Color.RED);
+            g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
         }
     }
 }

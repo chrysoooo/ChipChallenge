@@ -1,7 +1,6 @@
 package Main;
 
 import Monster.Spider;
-import entity.Test_NPC;
 import obj.*;
 
 public class AssetSetter {
@@ -14,7 +13,6 @@ public class AssetSetter {
     public void setObject(){
 
         int mapNum = 0;
-        int i = 0;
         gp.obj[mapNum][0] = new Key_Red();
         gp.obj[mapNum][0].worldX = 13 * gp.tileSize;
         gp.obj[mapNum][0].worldY = 7 * gp.tileSize;
@@ -142,21 +140,16 @@ public class AssetSetter {
 //
     }
 
-//    public void setNPC(){
-//
-//        int mapNum = 0;
-//
-//        gp.npc[mapNum][0] = new Test_NPC(gp);
-//        gp.npc[mapNum][0].worldX = 7 * gp.tileSize;
-//        gp.npc[mapNum][0].worldY = 13 * gp.tileSize;
-//    }
-
     public void setMonster(){
 
         int mapNum = 1;
 
         gp.monster[mapNum][0] = new Spider(gp);
-        gp.monster[mapNum][0].worldX = 9 * gp.tileSize;
-        gp.monster[mapNum][0].worldY = 9 * gp.tileSize;
+        gp.monster[mapNum][0].worldX = 5 * gp.tileSize;
+        gp.monster[mapNum][0].worldY = 15 * gp.tileSize;
+
+        gp.monster[mapNum][1] = new Spider(gp);
+        gp.monster[mapNum][1].worldX = 3 * gp.tileSize;
+        gp.monster[mapNum][1].worldY = 3 * gp.tileSize;
     }
 }
