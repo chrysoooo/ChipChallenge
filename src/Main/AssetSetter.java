@@ -122,6 +122,14 @@ public class AssetSetter {
         gp.obj[27] = new Fire();
         gp.obj[27].worldX = 8 * gp.tileSize;
         gp.obj[27].worldY = 9 * gp.tileSize;
+
+        gp.obj[28] = new Fire();
+        gp.obj[28].worldX = 9 * gp.tileSize;
+        gp.obj[28].worldY = 11 * gp.tileSize;
+
+        gp.obj[29] = new Fire();
+        gp.obj[29].worldX = 13 * gp.tileSize;
+        gp.obj[29].worldY = 11 * gp.tileSize;
     }
 
     public void setNPC(){
