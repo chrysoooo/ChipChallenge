@@ -65,126 +65,178 @@ public class Player extends Entity {
         }
     }
 
-//    public void moveInCurrentDirection() {
-//    switch(direction) {
-//        case "up":    worldY -= slideSpeed; break;
-//        case "down":  worldY += slideSpeed; break;
-//        case "left":  worldX -= slideSpeed; break;
-//        case "right": worldX += slideSpeed; break;
-//        }
-//    }
-//
-//    public void checkIceTile() {
-//
-//    int tileCol = (worldX + solidArea.x) / gp.tileSize;
-//    int tileRow = (worldY + solidArea.y) / gp.tileSize;
-//
-//    int tileNum = gp.tileM.mapTileNum[tileCol][tileRow];
-//    tile.Tile currentTile = gp.tileM.tile[tileNum];
-//
-//    if (!currentTile.isIce) {
-//        sliding = false;
-//        return;
-//    }
-//
-//    sliding = true;
-//
-//    switch(currentTile.iceTurn) {
-//
-//        case "BOTTOM_RIGHT":
-//            if(direction.equals("up"))       direction = "right";
-//            else if(direction.equals("left")) direction = "down";
-//            break;
-//
-//        case "BOTTOM_LEFT":
-//            if(direction.equals("up"))        direction = "left";
-//            else if(direction.equals("right")) direction = "down";
-//            break;
-//
-//        case "UPPER_RIGHT":
-//            if(direction.equals("down"))      direction = "right";
-//            else if(direction.equals("left")) direction = "up";
-//            break;
-//
-//        case "UPPER_LEFT":
-//            if(direction.equals("down"))     direction = "left";
-//            else if(direction.equals("right")) direction = "up";
-//            break;
-//    }
-//
-//        collisionOn = false;
-//        gp.cChecker.checkTile(this);
-//
-//        if(!collisionOn) {
-//            moveInCurrentDirection();
-//        }
-//        else {
-//            sliding = false;
-//        }
-//    }
+    public void moveInCurrentDirection() {
+    switch(direction) {
+        case "up":    worldY -= slideSpeed; break;
+        case "down":  worldY += slideSpeed; break;
+        case "left":  worldX -= slideSpeed; break;
+        case "right": worldX += slideSpeed; break;
+        }
+    }
+
+    public void checkIceTile() {
+
+        int tileCol = (worldX + solidArea.x + solidArea.width / 2) / gp.tileSize;
+        int tileRow = (worldY + solidArea.y + solidArea.height / 2) / gp.tileSize;
+
+        // Bounds check (important for safety)
+        if (tileCol < 0 || tileCol >= gp.maxWorldCol || tileRow < 0 || tileRow >= gp.maxWorldRow) {
+            sliding = false;
+            return;
+        }
+
+        int tileNum = gp.tileM.mapTileNum[tileCol][tileRow];
+        // Assumes gp.tileM.tile[tileNum] gives the correct Tile object
+        tile.Tile currentTile = gp.tileM.tile[tileNum];
+
+        // 2. Check if the current tile is NOT ice
+        if (!currentTile.isIce) {
+            sliding = false;
+            return;
+        }
+
+        // 3. We are on ice, so set sliding state
+        sliding = true;
+
+        // 4. Handle directional change for special ice tiles (if applicable)
+        // NOTE: This logic assumes your Tile class has a property called 'iceTurn'
+        // that is a String like "BOTTOM_RIGHT", etc., as you had in your commented code.
+        switch(currentTile.iceTurn) {
+
+            case "BOTTOM_RIGHT":
+                if(direction.equals("up"))       direction = "right";
+                else if(direction.equals("left")) direction = "down";
+                break;
+
+            case "BOTTOM_LEFT":
+                if(direction.equals("up"))        direction = "left";
+                else if(direction.equals("right")) direction = "down";
+                break;
+
+            case "UPPER_RIGHT":
+                if(direction.equals("down"))      direction = "right";
+                else if(direction.equals("left")) direction = "up";
+                break;
+
+            case "UPPER_LEFT":
+                if(direction.equals("down"))     direction = "left";
+                else if(direction.equals("right")) direction = "up";
+                break;
+        }
+
+        // 5. Check for collision in the current sliding direction
+        collisionOn = false;
+        gp.cChecker.checkTile(this); // Check collision in the current tile/direction
+
+        if(!collisionOn) {
+            // No collision, so keep sliding
+            moveInCurrentDirection();
+        }
+        else {
+            // Collision detected, stop sliding
+            sliding = false;
+        }
+    }
 
     public void update(){
+        boolean keyIsPressed = keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed;
+        isMoving = keyIsPressed;
 
-        if(keyH.upPressed == true || keyH.downPressed == true ||
-            keyH.leftPressed == true || keyH.rightPressed == true){
+        if (keyIsPressed) {
 
-            if(keyH.upPressed){
-                direction = "up";
+            String newDirection = direction; // Keep current direction if multiple keys are pressed
+            if(keyH.upPressed)      {
+                newDirection = "up"; lastDirection = UP;
+            } else if(keyH.downPressed)  {
+                newDirection = "down"; lastDirection = DOWN;
+            } else if(keyH.leftPressed)  {
+                newDirection = "left"; lastDirection = LEFT;
+            } else if(keyH.rightPressed) {
+                newDirection = "right"; lastDirection = RIGHT;
             }
-            else if(keyH.downPressed){
-                direction = "down";
-            }
-            else if(keyH.leftPressed){
-                direction = "left";
-            }
-            else if(keyH.rightPressed){
-                direction = "right";
-            }
 
-            // CHECK TILE COLLISION
-            collisionOn = false;
-            gp.cChecker.checkTile(this);
+            direction = newDirection;
 
-            // CHECK OBJECT COLLISION
-            int objIndex = gp.cChecker.checkObject(this, true);
-            pickUpObject(objIndex);
+           // CHECK TILE COLLISION
+           collisionOn = false;
+           gp.cChecker.checkTile(this);
 
-            // IF COLLISION FALSE, PLAYER CAN MOVE
-            if(collisionOn == false){
-                switch (direction) {
-                    case "up":
-                        worldY -= speed; // y value increases as they go down
-                        break;
-                    case "down":
-                        worldY += speed;
-                        break;
-                    case "left":
-                        worldX -= speed; // x values increases to the right
-                        break;
-                    case "right":
-                        worldX += speed;
-                        break;
+           // CHECK OBJECT COLLISION
+           int objIndex = gp.cChecker.checkObject(this, true);
+           pickUpObject(objIndex);
+
+           // IF COLLISION FALSE, PLAYER CAN MOVE
+           if(!collisionOn){
+               switch (direction) {
+                   case "up":
+                       worldY -= speed; // y value increases as they go down
+                       break;
+                   case "down":
+                       worldY += speed;
+                       break;
+                   case "left":
+                       worldX -= speed; // x values increases to the right
+                       break;
+                   case "right":
+                       worldX += speed;
+                       break;
+               }
+           } else {
+               sliding = false;
+           }
+
+            int tileCol = (worldX + solidArea.x + solidArea.width / 2) / gp.tileSize;
+            int tileRow = (worldY + solidArea.y + solidArea.height / 2) / gp.tileSize;
+            if (tileCol >= 0 && tileCol < gp.maxWorldCol && tileRow >= 0 && tileRow < gp.maxWorldRow) {
+                int tileNum = gp.tileM.mapTileNum[tileCol][tileRow];
+                tile.Tile currentTile = gp.tileM.tile[tileNum];
+                if (currentTile.isIce) {
+                    sliding = true;
+                } else {
+                    sliding = false;
                 }
             }
-            
-            spriteCounter++;
-            if(spriteCounter > 12){
-                if(spriteNum == 1){
-                    spriteNum = 2;
-                }
-                else if(spriteNum == 2){
-                    spriteNum = 1;
-                }
-                spriteCounter = 0;
-            }
-        }
-//        else {
-//            if (sliding) {
-//                checkIceTile();
-//            }
-//        }
+
+           spriteCounter++;
+           if(spriteCounter > 12){
+               if(spriteNum == 1){
+                   spriteNum = 2;
+               }
+               else if(spriteNum == 2){
+                   spriteNum = 1;
+               }
+               spriteCounter = 0;
+           }
+       }
+      else {
+          if (sliding) {
+              checkIceTile();
+          }
+      }
+
+      //checkIceTile();
 //
-//        checkIceTile();
+      //  int xspd = (keyH.rightPressed ? 1 : 0) - (keyH.leftPressed ? 1 : 0);
+      //  int yspd = (keyH.downPressed ? 1 : 0) - (keyH.upPressed ? 1 : 0);
+//
+      //  xspd *= speed;
+      //  yspd *= speed;
+//
+      //  updateFaceDirection(xspd, yspd);
+      //  updateSpriteAnimation();
+//
+      //  collisionOn = false;
+      //  gp.cChecker.checkTileWithOffset(this, xspd, 0);
+      //  if (collisionOn) xspd = 0;
+//
+      //  collisionOn = false;
+      //  gp.cChecker.checkTileWithOffset(this, 0, yspd);
+      //  if (collisionOn) yspd = 0;
+//
+      //  worldX += xspd;
+      //  worldY += yspd;
+//
+      //  if (!isMoving && sliding) checkIceTile();
     }
 
     public void pickUpObject(int i){

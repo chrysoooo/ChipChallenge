@@ -98,6 +98,33 @@ public class CollisionChecker {
         }
     }
 
+    public void checkTileWithOffset(Entity e, int xOff, int yOff) {
+
+        int leftX   = e.worldX + e.solidArea.x + xOff;
+        int rightX  = e.worldX + e.solidArea.x + e.solidArea.width + xOff;
+        int topY    = e.worldY + e.solidArea.y + yOff;
+        int bottomY = e.worldY + e.solidArea.y + e.solidArea.height + yOff;
+
+        int leftCol = leftX / gp.tileSize;
+        int rightCol = rightX / gp.tileSize;
+        int topRow = topY / gp.tileSize;
+        int bottomRow = bottomY / gp.tileSize;
+
+        int tile1 = gp.tileM.mapTileNum[topRow][leftCol];
+        int tile2 = gp.tileM.mapTileNum[topRow][rightCol];
+        int tile3 = gp.tileM.mapTileNum[bottomRow][leftCol];
+        int tile4 = gp.tileM.mapTileNum[bottomRow][rightCol];
+
+        // any is solid?
+        if (gp.tileM.tile[tile1].collision ||
+                gp.tileM.tile[tile2].collision ||
+                gp.tileM.tile[tile3].collision ||
+                gp.tileM.tile[tile4].collision)
+        {
+            e.collisionOn = true;
+        }
+    }
+
     public int checkObject(Entity entity, boolean player){
         int index = 999;
 
