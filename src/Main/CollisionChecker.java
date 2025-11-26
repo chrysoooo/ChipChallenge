@@ -23,76 +23,80 @@ public class CollisionChecker {
 
         int tileNum1, tileNum2;
 
-//        entity.onIce = false;
-//        entity.iceTurn = "NONE";
+        if (entity.direction == null) {
+            // Log a warning or simply return, as a null direction means
+            // the entity isn't moving and collision check based on direction is unnecessary.
+            return;
+        }
 
         switch(entity.direction){
             case "up":
                 entityTopRow = (entityTopWorldY - entity.speed)/gp.tileSize;
-                tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityTopRow];
-                tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityTopRow];
+                if (entityTopRow >= 0) {
+                    tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityTopRow];
+                    tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityTopRow];
 
-                if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
+                    if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
+                        entity.collisionOn = true;
+                    }
+                } else {
                     entity.collisionOn = true;
-
-//                    if(gp.tileM.tile[tileNum1].isIce || gp.tileM.tile[tileNum2].isIce){
-//                    entity.onIce = true;
-//                        if(gp.tileM.tile[tileNum1].isIce && !gp.tileM.tile[tileNum1].iceTurn.equals("NONE"))
-//                            entity.iceTurn = gp.tileM.tile[tileNum1].iceTurn;
-//                        if(gp.tileM.tile[tileNum2].isIce && !gp.tileM.tile[tileNum2].iceTurn.equals("NONE"))
-//                            entity.iceTurn = gp.tileM.tile[tileNum2].iceTurn;
-//                        }
                 }
                 break;
             case "down":
                 entityBottomRow = (entityBottomWorldY + entity.speed)/gp.tileSize;
-                tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityBottomRow];
-                tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityBottomRow];
-                
-                if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
-                    entity.collisionOn = true;
+                if (entityBottomRow < gp.maxWorldRow) { // gp.maxWorldRow is 20, so valid is 0-19
 
-//                    if(gp.tileM.tile[tileNum1].isIce || gp.tileM.tile[tileNum2].isIce){
-//                    entity.onIce = true;
-//                        if(gp.tileM.tile[tileNum1].isIce && !gp.tileM.tile[tileNum1].iceTurn.equals("NONE"))
-//                            entity.iceTurn = gp.tileM.tile[tileNum1].iceTurn;
-//                        if(gp.tileM.tile[tileNum2].isIce && !gp.tileM.tile[tileNum2].iceTurn.equals("NONE"))
-//                            entity.iceTurn = gp.tileM.tile[tileNum2].iceTurn;
-//                        }
+                    // Use the original entityLeftCol and entityRightCol (which should be constrained
+                    // from the start, but we'll assume they are okay for now and focus on the row)
+
+                    // We need to ensure the column indices are also safe here, though the error
+                    // points to the row calculation being the primary mover in this direction.
+                    if (entityLeftCol >= 0 && entityLeftCol < gp.maxWorldCol &&
+                            entityRightCol >= 0 && entityRightCol < gp.maxWorldCol) {
+
+                        tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityBottomRow];
+                        tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityBottomRow];
+
+                        if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
+                            entity.collisionOn = true;
+                        }
+                    } else {
+                        // If column indices are somehow out of bounds even when the row is okay
+                        entity.collisionOn = true;
+                    }
+
+                } else {
+                    // If futureBottomRow is >= maxWorldRow (i.e., off the bottom),
+                    // force collision to stop movement
+                    entity.collisionOn = true;
                 }
                 break;
             case "left":
                 entityLeftCol = (entityLeftWorldX - entity.speed)/gp.tileSize;
-                tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityTopRow];
-                tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityBottomRow];
-                
-                if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
-                    entity.collisionOn = true;
+                if (entityLeftCol >= 0) {
+                    tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityTopRow];
+                    tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityBottomRow];
 
-//                    if(gp.tileM.tile[tileNum1].isIce || gp.tileM.tile[tileNum2].isIce){
-//                    entity.onIce = true;
-//                        if(gp.tileM.tile[tileNum1].isIce && !gp.tileM.tile[tileNum1].iceTurn.equals("NONE"))
-//                            entity.iceTurn = gp.tileM.tile[tileNum1].iceTurn;
-//                        if(gp.tileM.tile[tileNum2].isIce && !gp.tileM.tile[tileNum2].iceTurn.equals("NONE"))
-//                            entity.iceTurn = gp.tileM.tile[tileNum2].iceTurn;
-//                        }
+                    if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
+                        entity.collisionOn = true;
+                    }
+                } else {
+                    entity.collisionOn = true;
                 }
                 break;
             case "right":
                 entityRightCol = (entityRightWorldX + entity.speed)/gp.tileSize;
-                tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityTopRow];
-                tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityBottomRow];
-                
-                if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
-                    entity.collisionOn = true;
+                if (entityRightCol < gp.maxWorldCol) {
+                    tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityTopRow];
+                    tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityBottomRow];
 
-//                    if(gp.tileM.tile[tileNum1].isIce || gp.tileM.tile[tileNum2].isIce){
-//                    entity.onIce = true;
-//                        if(gp.tileM.tile[tileNum1].isIce && !gp.tileM.tile[tileNum1].iceTurn.equals("NONE"))
-//                            entity.iceTurn = gp.tileM.tile[tileNum1].iceTurn;
-//                        if(gp.tileM.tile[tileNum2].isIce && !gp.tileM.tile[tileNum2].iceTurn.equals("NONE"))
-//                            entity.iceTurn = gp.tileM.tile[tileNum2].iceTurn;
-//                        }
+                    if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
+                        entity.collisionOn = true;
+                    }
+                } else {
+                    // If futureRightCol is >= maxWorldCol (i.e., off the right of the map), treat as collision
+                    entity.collisionOn = true;
                 }
                 break;
         }
