@@ -110,10 +110,10 @@ public class CollisionChecker {
         int topRow = topY / gp.tileSize;
         int bottomRow = bottomY / gp.tileSize;
 
-        int tile1 = gp.tileM.mapTileNum[topRow][leftCol];
-        int tile2 = gp.tileM.mapTileNum[topRow][rightCol];
-        int tile3 = gp.tileM.mapTileNum[bottomRow][leftCol];
-        int tile4 = gp.tileM.mapTileNum[bottomRow][rightCol];
+        int tile1 = gp.tileM.mapTileNum[gp.currentMap][leftCol][topRow];
+        int tile2 = gp.tileM.mapTileNum[gp.currentMap][rightCol][topRow];
+        int tile3 = gp.tileM.mapTileNum[gp.currentMap][leftCol][bottomRow];
+        int tile4 = gp.tileM.mapTileNum[gp.currentMap][rightCol][bottomRow];
 
         // any is solid?
         if (gp.tileM.tile[tile1].collision ||

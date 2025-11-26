@@ -85,28 +85,21 @@ public class Player extends Entity {
         int tileCol = (worldX + solidArea.x + solidArea.width / 2) / gp.tileSize;
         int tileRow = (worldY + solidArea.y + solidArea.height / 2) / gp.tileSize;
 
-        // Bounds check (important for safety)
         if (tileCol < 0 || tileCol >= gp.maxWorldCol || tileRow < 0 || tileRow >= gp.maxWorldRow) {
             sliding = false;
             return;
         }
 
-        int tileNum = gp.tileM.mapTileNum[tileCol][tileRow];
-        // Assumes gp.tileM.tile[tileNum] gives the correct Tile object
+        int tileNum = gp.tileM.mapTileNum[gp.currentMap][tileCol][tileRow];
         tile.Tile currentTile = gp.tileM.tile[tileNum];
 
-        // 2. Check if the current tile is NOT ice
         if (!currentTile.isIce) {
             sliding = false;
             return;
         }
 
-        // 3. We are on ice, so set sliding state
         sliding = true;
 
-        // 4. Handle directional change for special ice tiles (if applicable)
-        // NOTE: This logic assumes your Tile class has a property called 'iceTurn'
-        // that is a String like "BOTTOM_RIGHT", etc., as you had in your commented code.
         switch(currentTile.iceTurn) {
 
             case "BOTTOM_RIGHT":
@@ -130,16 +123,13 @@ public class Player extends Entity {
                 break;
         }
 
-        // 5. Check for collision in the current sliding direction
         collisionOn = false;
-        gp.cChecker.checkTile(this); // Check collision in the current tile/direction
+        gp.cChecker.checkTile(this);
 
         if(!collisionOn) {
-            // No collision, so keep sliding
             moveInCurrentDirection();
         }
         else {
-            // Collision detected, stop sliding
             sliding = false;
         }
     }
@@ -194,7 +184,7 @@ public class Player extends Entity {
             int tileCol = (worldX + solidArea.x + solidArea.width / 2) / gp.tileSize;
             int tileRow = (worldY + solidArea.y + solidArea.height / 2) / gp.tileSize;
             if (tileCol >= 0 && tileCol < gp.maxWorldCol && tileRow >= 0 && tileRow < gp.maxWorldRow) {
-                int tileNum = gp.tileM.mapTileNum[tileCol][tileRow];
+                int tileNum = gp.tileM.mapTileNum[gp.currentMap][tileCol][tileRow];
                 tile.Tile currentTile = gp.tileM.tile[tileNum];
                 if (currentTile.isIce) {
                     sliding = true;
