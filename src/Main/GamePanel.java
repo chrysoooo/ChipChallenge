@@ -33,9 +33,12 @@ public class GamePanel extends JPanel implements Runnable {
 
     public TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
-    Thread gameThread; // starts the game and keeps it running
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
+    public UI ui = new UI(this);
+    Thread gameThread; // starts the game and keeps it running
+
+    // ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
     public SuperObject obj[] = new SuperObject[40]; // can only display up to -- objects at the same time
     public int mapTileNum[][];
@@ -107,6 +110,8 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         player.draw(g2);
+
+        ui.draw(g2);
 
         g2.dispose(); // disposes graphics context to save memory
     }

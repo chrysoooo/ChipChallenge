@@ -9,9 +9,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Player extends Entity {
+
     GamePanel gp;
     KeyHandler keyH;
-
     public final int screenX;
     public final int screenY;
 
@@ -21,7 +21,9 @@ public class Player extends Entity {
     int hasKey_Yellow = 0;
     int hasFlippers = 0;
     int hasFireBoots = 0;
-    int hasMicrochip = 0;
+    public int hasMicrochip = 0;
+
+    int standCounter = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -32,20 +34,25 @@ public class Player extends Entity {
 
         // COLLISION BOX OF PLAYER
         solidArea = new Rectangle();
-        solidArea.x = 9;
-        solidArea.y = 9;
+        solidArea.x = 1;
+        solidArea.y = 1;
         solidAreaDefaultX = solidArea.x; // records default values
         solidAreaDefaultY = solidArea.y;
-        solidArea.width = 10;
-        solidArea.height = 17;
+        solidArea.width = 30;
+        solidArea.height = 30;
 
         setDefaultValues();
         getPlayerImage();
     }
 
     public void setDefaultValues(){
-        worldX = gp.tileSize * 15;
-        worldY = gp.tileSize * 11;
+        // DO NOT REMOVE THIS IS FOR LEVEL 1 TESTING
+         worldX = gp.tileSize * 15;
+         worldY = gp.tileSize * 11;
+
+        // DO NOT REMOVE THIS IS FOR LEVEL 2
+//        worldX = gp.tileSize * 9;
+//        worldY = gp.tileSize * 9;
         speed = 4;
         direction = "down";
         // Reset force speeds
@@ -237,6 +244,13 @@ public class Player extends Entity {
                     case "right": worldX += speed; break;
                 }
             }
+        } else {
+            standCounter++;
+
+            if(standCounter == 10){
+                spriteNum = 1;
+                standCounter = 0;
+            }
         }
 
         // --- ANIMATION LOGIC ---
@@ -358,5 +372,9 @@ public class Player extends Entity {
         }
 
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+
+        // DEBUG: DISPLAY PLAYER COLLISION BOX
+//        g2.setColor(Color.RED);
+//        g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
     }
 }
