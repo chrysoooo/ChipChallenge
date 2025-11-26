@@ -10,7 +10,6 @@ import java.io.IOException;
 
 public class Player extends Entity {
 
-    GamePanel gp;
     KeyHandler keyH;
     public final int screenX;
     public final int screenY;
@@ -26,7 +25,9 @@ public class Player extends Entity {
     int standCounter = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
-        this.gp = gp;
+
+        super(gp);
+
         this.keyH = keyH;
 
         screenX = gp.screenWidth/2 - (gp.tileSize/2);
@@ -34,12 +35,12 @@ public class Player extends Entity {
 
         // COLLISION BOX OF PLAYER
         solidArea = new Rectangle();
-        solidArea.x = 1;
-        solidArea.y = 1;
+        solidArea.x = 9;
+        solidArea.y = 14;
         solidAreaDefaultX = solidArea.x; // records default values
         solidAreaDefaultY = solidArea.y;
-        solidArea.width = 30;
-        solidArea.height = 30;
+        solidArea.width = 14;
+        solidArea.height = 16;
 
         setDefaultValues();
         getPlayerImage();
@@ -374,7 +375,7 @@ public class Player extends Entity {
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 
         // DEBUG: DISPLAY PLAYER COLLISION BOX
-//        g2.setColor(Color.RED);
-//        g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
+        g2.setColor(Color.RED);
+        g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
     }
 }
