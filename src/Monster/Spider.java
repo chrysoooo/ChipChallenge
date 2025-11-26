@@ -11,6 +11,7 @@ public class Spider extends Entity {
     public Spider(GamePanel gp) {
         super(gp);
 
+        type = 2;
         name = "Spider";
         speed = 3;
 

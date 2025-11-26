@@ -28,7 +28,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int worldHeight = tileSize * maxWorldRow;
 
     public final int maxMap = 10;
-    public final int currentMap = 1;
+    public int currentMap = 1;
 
     //FPS
     int FPS = 60;
@@ -60,7 +60,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame(){
         aSetter.setObject();
-        aSetter.setNPC(); // NOT NEEDED ONLY FOR LOGIC
+//        aSetter.setNPC(); // NOT NEEDED ONLY FOR LOGIC
         aSetter.setMonster();
     }
 

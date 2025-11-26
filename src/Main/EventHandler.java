@@ -5,7 +5,7 @@ import java.awt.*;
 public class EventHandler {
 
     GamePanel gp;
-    EventRect eventRect[][][];
+    EventRect[][][] eventRect;
     int previousEventX, previousEventY;
     boolean canTouchEvent = true;
 
@@ -44,15 +44,15 @@ public class EventHandler {
     }
 
     public void checkEvent(){
-        int xDistance = Math.abs(gp.player.worldX = previousEventX);
-        int yDistance = Math.abs(gp.player.worldY = previousEventY);
+        int xDistance = Math.abs(gp.player.worldX - previousEventX);
+        int yDistance = Math.abs(gp.player.worldY - previousEventY);
         int distance = Math.max(xDistance, yDistance);
         if(distance > gp.tileSize){
             canTouchEvent = true;
         }
 
         if(canTouchEvent == true){
-            if(hit(4, 3, "left") == true){
+            if(hit(0, 3, 4, "right") && gp.player.hasMicrochip >= 2){
                 teleport(1, 9, 9);
             }
         }
@@ -68,7 +68,7 @@ public class EventHandler {
             eventRect[map][col][row].y = row*gp.tileSize + eventRect[map][col][row].y;
 
             if(gp.player.solidArea.intersects(eventRect[map][col][row]) && eventRect[map][col][row].eventDone == false){
-                if(gp.player.direction.contentEquals(reqDirection) || reqDirection.equals("any")){
+                if(reqDirection.equals("any") || gp.player.direction.equals(reqDirection)){
                     hit = true;
 
                     previousEventX = gp.player.worldX;
@@ -82,7 +82,6 @@ public class EventHandler {
         }
         return hit;
     }
-
     public void teleport(int map, int col, int row){
 
         gp.currentMap = map;

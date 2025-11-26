@@ -18,7 +18,7 @@ public class Player extends Entity {
     int hasKey_Red = 0;
     int hasKey_Blue = 0;
     int hasKey_Yellow = 0;
-    int hasFlippers = 0;
+    public int hasFlippers = 0;
     int hasFireBoots = 0;
     public int hasMicrochip = 0;
 
@@ -61,6 +61,9 @@ public class Player extends Entity {
         speedY = 0;
         isOnForceTile = false;
         currentForceTileID = -1;
+
+        maxLife = 6;
+        life = maxLife;
     }
 
     public void getPlayerImage(){
@@ -238,7 +241,10 @@ public class Player extends Entity {
 
             //CHECK NPC COLLISION
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
-            interactNPC(npcIndex);
+
+            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+            contactMonster(monsterIndex);
+
 
             // IF COLLISION FALSE, PLAYER CAN MOVE
             if(!collisionOn){
@@ -270,6 +276,14 @@ public class Player extends Entity {
                     spriteNum = 1;
                 }
                 spriteCounter = 0;
+            }
+        }
+
+        if(invincible == true){
+            invincibleCounter++;
+            if(invincibleCounter > 60){
+                invincible = false;
+                invincibleCounter = 0;
             }
         }
     }
@@ -313,22 +327,14 @@ public class Player extends Entity {
                 case "Flippers":
                     hasFlippers++;
                     gp.obj[gp.currentMap][i] = null;
-                    for (int j = 0; j < gp.obj.length; j++) {
-                        // Ensure the object exists and is a Water Tile
-                        if (gp.obj[gp.currentMap][j] != null && "Water Tile".equals(gp.obj[gp.currentMap][j].name)) {
-                            gp.obj[gp.currentMap][j].collision = false;
-                        }
-                    }
+                    // Update all water tiles in the CURRENT map to be passable
+                    updateWaterTilesPassable();
                     break;
                 case "Fire Boots":
                     hasFireBoots++;
                     gp.obj[gp.currentMap][i] = null;
-                    for (int j = 0; j < gp.obj.length; j++) {
-                        // Ensure the object exists and is a Fire Tile
-                        if (gp.obj[gp.currentMap][j] != null && "Fire Tile".equals(gp.obj[gp.currentMap][j].name)) {
-                            gp.obj[gp.currentMap][j].collision = false;
-                        }
-                    }
+                    // Update all fire tiles in the CURRENT map to be passable
+                    updateFireTilesPassable();
                     break;
                 case "Microchip":
                     hasMicrochip++;
@@ -338,9 +344,40 @@ public class Player extends Entity {
         }
     }
 
-    public void interactNPC(int i){
+    // New helper methods to handle tile collision updates
+    private void updateWaterTilesPassable() {
+        if (hasFlippers > 0) {
+            for (int j = 0; j < gp.obj[gp.currentMap].length; j++) {
+                if (gp.obj[gp.currentMap][j] != null && "Water Tile".equals(gp.obj[gp.currentMap][j].name)) {
+                    gp.obj[gp.currentMap][j].collision = false;
+                }
+            }
+        }
+    }
+
+    private void updateFireTilesPassable() {
+        if (hasFireBoots > 0) {
+            for (int j = 0; j < gp.obj[gp.currentMap].length; j++) {
+                if (gp.obj[gp.currentMap][j] != null && "Fire Tile".equals(gp.obj[gp.currentMap][j].name)) {
+                    gp.obj[gp.currentMap][j].collision = false;
+                }
+            }
+        }
+    }
+
+//    public void interactNPC(int i){
+//        if(i != 999){
+//
+//        }
+//    }
+
+    public void contactMonster(int i){
         if(i != 999){
 
+            if(invincible = false){
+                life -= 1;
+                invincible = true;
+            }
         }
     }
 

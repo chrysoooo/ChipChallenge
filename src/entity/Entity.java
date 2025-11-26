@@ -27,10 +27,12 @@ public class Entity {
     public int face = DOWN;
 //    public String iceTurn = "NONE";
 
-    public Rectangle solidArea =  new Rectangle(0,0,32,32);
+    public Rectangle solidArea =  new Rectangle(0,0,15,15);
     public int solidAreaDefaultX,  solidAreaDefaultY;
     public boolean collisionOn = false;
     public int actionLockCounter = 0;
+    public boolean invincible = false;
+    public int invincibleCounter = 0;
 
     public boolean sliding = false;
     public int slideSpeed = 4;
@@ -41,6 +43,11 @@ public class Entity {
     public int speedY = 0;              // Vertical velocity component (used by ForceTile)
     public boolean isOnForceTile = false; // Flag indicating if the entity is currently standing on a ForceTile
     public int currentForceTileID = -1;
+
+    public int maxLife;
+    public int life;
+
+    public int type; // 0 - player, 1 - npc, 2 - monster
 
     public Entity(GamePanel gp) {
         this.gp = gp;
@@ -55,7 +62,15 @@ public class Entity {
             collisionOn = false;
             gp.cChecker.checkTile(this);
             gp.cChecker.checkObject(this, false);
-            gp.cChecker.checkPlayer(this);
+            gp.cChecker.checkEntity(this, gp.monster);
+            boolean contactPlayer = gp.cChecker.checkPlayer(this);
+
+            if(this.type == 2 && contactPlayer == true){
+                if(gp.player.invincible == false){
+                    gp.player.life -= 1;
+                    gp.player.invincible = true;
+                }
+            }
 
             if(!collisionOn){
                 switch (direction) {

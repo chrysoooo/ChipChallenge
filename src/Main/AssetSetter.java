@@ -142,21 +142,21 @@ public class AssetSetter {
 //
     }
 
-    public void setNPC(){
-
-        int mapNum = 0;
-
-        gp.npc[mapNum][0] = new Test_NPC(gp);
-        gp.npc[mapNum][0].worldX = 7 * gp.tileSize;
-        gp.npc[mapNum][0].worldY = 13 * gp.tileSize;
-    }
+//    public void setNPC(){
+//
+//        int mapNum = 0;
+//
+//        gp.npc[mapNum][0] = new Test_NPC(gp);
+//        gp.npc[mapNum][0].worldX = 7 * gp.tileSize;
+//        gp.npc[mapNum][0].worldY = 13 * gp.tileSize;
+//    }
 
     public void setMonster(){
 
         int mapNum = 1;
 
         gp.monster[mapNum][0] = new Spider(gp);
-        gp.monster[mapNum][0].worldX = 24 * gp.tileSize;
-        gp.monster[mapNum][0].worldY = 13 * gp.tileSize;
+        gp.monster[mapNum][0].worldX = 9 * gp.tileSize;
+        gp.monster[mapNum][0].worldY = 9 * gp.tileSize;
     }
 }
