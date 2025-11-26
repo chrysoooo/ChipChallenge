@@ -38,6 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
     public AssetSetter aSetter = new AssetSetter(this);
     public Player player = new Player(this, keyH);
     public SuperObject obj[] = new SuperObject[40]; // can only display up to -- objects at the same time
+    public int mapTileNum[][];
 
     public GamePanel(){
 

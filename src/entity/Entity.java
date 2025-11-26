@@ -31,4 +31,9 @@ public class Entity {
     public int slideSpeed = 4;
     public int lastDirection = DOWN;
     public boolean isMoving = false;
+
+    public int speedX = 0;              // Horizontal velocity component (used by ForceTile)
+    public int speedY = 0;              // Vertical velocity component (used by ForceTile)
+    public boolean isOnForceTile = false; // Flag indicating if the entity is currently standing on a ForceTile
+    public int currentForceTileID = -1;
 }

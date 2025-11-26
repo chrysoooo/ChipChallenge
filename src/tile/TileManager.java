@@ -37,15 +37,23 @@ public class TileManager {
 
             tile[3] = new Tile();
             tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ffup.png")); // force floor tiles
+            tile[3].forceDirection = "up";
+            tile[3].isForce = true;
 
             tile[4] = new Tile();
             tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ffdown.png"));
+            tile[4].forceDirection = "down";
+            tile[4].isForce = true;
 
             tile[5] = new Tile();
             tile[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ffleft.png"));
+            tile[5].forceDirection = "left";
+            tile[5].isForce = true;
 
             tile[6] = new Tile();
             tile[6].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ffright.png"));
+            tile[6].forceDirection = "right";
+            tile[6].isForce = true;
 
             tile[7] = new Tile();
             tile[7].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ice1.png")); // ice tiles
