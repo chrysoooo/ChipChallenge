@@ -10,15 +10,16 @@ import javax.imageio.ImageIO;
 public class TileManager {
     GamePanel gp;
     public Tile[] tile;
-    public int[][] mapTileNum;
+    public int[][][] mapTileNum;
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
         tile = new Tile[15];
-        mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
+        mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
 
         getTileImage();
-        loadMap("/levels/level01.txt");
+        loadMap("/levels/level01.txt", 0);
+        loadMap("/levels/level02.txt", 1);
     }
 
     public void getTileImage(){
@@ -32,53 +33,41 @@ public class TileManager {
             tile[1].collision = true;
 
             tile[2] = new Tile();
-            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/water.png"));
-            tile[2].collision = true;
+            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/exit.png"));
 
             tile[3] = new Tile();
-            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/fire1.png"));
-            //tile[3].collision = true;
+            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ffup.png")); // force floor tiles
 
             tile[4] = new Tile();
-            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ffup.png")); // force floor tiles
+            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ffdown.png"));
 
             tile[5] = new Tile();
-            tile[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ffdown.png"));
+            tile[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ffleft.png"));
 
             tile[6] = new Tile();
-            tile[6].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ffleft.png"));
+            tile[6].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ffright.png"));
 
             tile[7] = new Tile();
-            tile[7].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ffright.png"));
-
-            tile[8] = new Tile();
-            tile[8].image = ImageIO.read(getClass().getResourceAsStream("/objects/door_blue.png"));
-
-            tile[9] = new Tile();
-            tile[9].image = ImageIO.read(getClass().getResourceAsStream("/objects/door_red.png"));
-
-            tile[10] = new Tile();
-            tile[10].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ice1.png")); // ice tiles
+            tile[7].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ice1.png")); // ice tiles
             //tile[10].isIce = true;
 
-            tile[11] = new Tile();
-            tile[11].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ice2_brc.png"));
+            tile[8] = new Tile();
+            tile[8].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ice2_brc.png"));
             //tile[11].isIce = true;
             //tile[11].iceTurn = "BOTTOM_RIGHT";
 
-
-            tile[12] = new Tile();
-            tile[12].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ice3_blc.png"));
+            tile[9] = new Tile();
+            tile[9].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ice3_blc.png"));
 //            tile[12].isIce = true;
 //            tile[12].iceTurn = "BOTTOM_LEFT";
 
-            tile[13] = new Tile();
-            tile[13].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ice4_urc.png"));
+            tile[10] = new Tile();
+            tile[10].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ice4_urc.png"));
 //            tile[13].isIce = true;
 //            tile[13].iceTurn = "UPPER_RIGHT";
 
-            tile[14] = new Tile();
-            tile[14].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ice5_ulc.png"));
+            tile[11] = new Tile();
+            tile[11].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ice5_ulc.png"));
 //            tile[14].isIce = true;
 //            tile[14].iceTurn = "UPPER_LEFT";
 
@@ -87,7 +76,7 @@ public class TileManager {
         }
     }
 
-    public void loadMap(String filePath){
+    public void loadMap(String filePath, int map){
         try{
             InputStream is = getClass().getResourceAsStream(filePath);
             BufferedReader br = new BufferedReader(new InputStreamReader(is)); // reads the content of the text file.
@@ -103,7 +92,7 @@ public class TileManager {
 
                     int num = Integer.parseInt(numbers[col]);
 
-                    mapTileNum[col][row] = num;
+                    mapTileNum[map][col][row] = num;
                     col++;
                 }
                 if(col == gp.maxWorldCol){
@@ -124,7 +113,7 @@ public class TileManager {
         int worldRow = 0;
 
         while(worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow){
-            int tileNum = mapTileNum[worldCol][worldRow];
+            int tileNum = mapTileNum[gp.currentMap][worldCol][worldRow];
 
             int worldX = worldCol * gp.tileSize;
             int worldY = worldRow * gp.tileSize;

@@ -17,6 +17,10 @@ public class Player extends Entity {
 
     int hasKey_Red = 0;
     int hasKey_Blue = 0;
+    int hasKey_Yellow = 0;
+    int hasFlippers = 0;
+    int hasFireBoots = 0;
+    int hasMicrochip = 0;
 
 //    public boolean sliding = false;
 //    public int slideSpeed = 4;
@@ -44,6 +48,8 @@ public class Player extends Entity {
     public void setDefaultValues(){
         worldX = gp.tileSize * 15;
         worldY = gp.tileSize * 11;
+//        worldX = gp.tileSize * 9;
+//        worldY = gp.tileSize * 7;
         speed = 4;
         direction = "down";
     }
@@ -263,6 +269,39 @@ public class Player extends Entity {
                         gp.obj[i] = null;
                         hasKey_Blue--;
                     }
+                    break;
+                case "Yellow Key":
+                    hasKey_Yellow++;
+                    gp.obj[i] = null;
+                    break;
+                case "Yellow Door":
+                    if(hasKey_Yellow > 0){
+                        gp.obj[i] = null;
+                        hasKey_Yellow--;
+                    }
+                    break;
+                case "Flippers":
+                    hasFlippers++;
+                    gp.obj[i] = null;
+                    for (int j = 0; j < gp.obj.length; j++) {
+                        // Ensure the object exists and is a Water Tile
+                        if (gp.obj[j] != null && gp.obj[j].name.equals("Water Tile")) {
+                            gp.obj[j].collision = false;
+                        }
+                    }
+                    break;
+                case "Fire Boots":
+                    hasFireBoots++;
+                    gp.obj[i] = null;
+                    for (int j = 0; j < gp.obj.length; j++) {
+                        // Ensure the object exists and is a Fire Tile
+                        if (gp.obj[j] != null && gp.obj[j].name.equals("Fire Tile")) {
+                            gp.obj[j].collision = false;
+                        }
+                    }
+                case "Microchip":
+                    hasMicrochip++;
+                    gp.obj[i] = null;
                     break;
             }
         }
