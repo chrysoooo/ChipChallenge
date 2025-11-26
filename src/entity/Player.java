@@ -277,62 +277,62 @@ public class Player extends Entity {
 
     public void pickUpObject(int i){
         if(i != 999){
-            String objectName = gp.obj[i].name;
+            String objectName = gp.obj[gp.currentMap][i].name;
 
             switch(objectName){
                 case "Red Key":
                     hasKey_Red++;
-                    gp.obj[i] = null;
+                    gp.obj[gp.currentMap][i] = null;
                     break;
                 case "Red Door":
                     if(hasKey_Red > 0){
-                        gp.obj[i] = null;
+                        gp.obj[gp.currentMap][i] = null;
                         hasKey_Red--;
                     }
                     break;
                 case "Blue Key":
                     hasKey_Blue++;
-                    gp.obj[i] = null;
+                    gp.obj[gp.currentMap][i] = null;
                     break;
                 case "Blue Door":
                     if(hasKey_Blue > 0){
-                        gp.obj[i] = null;
+                        gp.obj[gp.currentMap][i] = null;
                         hasKey_Blue--;
                     }
                     break;
                 case "Yellow Key":
                     hasKey_Yellow++;
-                    gp.obj[i] = null;
+                    gp.obj[gp.currentMap][i] = null;
                     break;
                 case "Yellow Door":
                     if(hasKey_Yellow > 0){
-                        gp.obj[i] = null;
+                        gp.obj[gp.currentMap][i] = null;
                         hasKey_Yellow--;
                     }
                     break;
                 case "Flippers":
                     hasFlippers++;
-                    gp.obj[i] = null;
+                    gp.obj[gp.currentMap][i] = null;
                     for (int j = 0; j < gp.obj.length; j++) {
                         // Ensure the object exists and is a Water Tile
-                        if (gp.obj[j] != null && "Water Tile".equals(gp.obj[j].name)) {
-                            gp.obj[j].collision = false;
+                        if (gp.obj[gp.currentMap][j] != null && "Water Tile".equals(gp.obj[gp.currentMap][j].name)) {
+                            gp.obj[gp.currentMap][j].collision = false;
                         }
                     }
                     break;
                 case "Fire Boots":
                     hasFireBoots++;
-                    gp.obj[i] = null;
+                    gp.obj[gp.currentMap][i] = null;
                     for (int j = 0; j < gp.obj.length; j++) {
                         // Ensure the object exists and is a Fire Tile
-                        if (gp.obj[j] != null && "Fire Tile".equals(gp.obj[j].name)) {
-                            gp.obj[j].collision = false;
+                        if (gp.obj[gp.currentMap][j] != null && "Fire Tile".equals(gp.obj[gp.currentMap][j].name)) {
+                            gp.obj[gp.currentMap][j].collision = false;
                         }
                     }
                     break;
                 case "Microchip":
                     hasMicrochip++;
-                    gp.obj[i] = null;
+                    gp.obj[gp.currentMap][i] = null;
                     break;
             }
         }
