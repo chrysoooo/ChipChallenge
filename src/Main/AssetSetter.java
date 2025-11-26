@@ -133,11 +133,24 @@ public class AssetSetter {
         gp.obj[mapNum][29].worldX = 13 * gp.tileSize;
         gp.obj[mapNum][29].worldY = 11 * gp.tileSize;
 
-//        mapNum = 1;
-//        gp.obj[mapNum][29] = new Fire();
-//        gp.obj[mapNum][29].worldX = 13 * gp.tileSize;
-//        gp.obj[mapNum][29].worldY = 11 * gp.tileSize;
-//
+        mapNum = 1;
+
+        gp.obj[mapNum][30] = new Door_Yellow();
+        gp.obj[mapNum][30].worldX = 11 * gp.tileSize;
+        gp.obj[mapNum][30].worldY = 13 * gp.tileSize;
+
+        gp.obj[mapNum][31] = new Key_Yellow();
+        gp.obj[mapNum][31].worldX = 17 * gp.tileSize;
+        gp.obj[mapNum][31].worldY = 11 * gp.tileSize;
+
+        gp.obj[mapNum][32] = new Microchip();
+        gp.obj[mapNum][32].worldX = 5 * gp.tileSize;
+        gp.obj[mapNum][32].worldY = 1 * gp.tileSize;
+
+        gp.obj[mapNum][33] = new Microchip();
+        gp.obj[mapNum][33].worldX = 3 * gp.tileSize;
+        gp.obj[mapNum][33].worldY = 9 * gp.tileSize;
+
     }
 
     public void setMonster(){

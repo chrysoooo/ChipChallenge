@@ -1,6 +1,7 @@
 package Main;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class EventHandler {
 
@@ -21,10 +22,10 @@ public class EventHandler {
         while(map < gp.maxMap && col < gp.maxWorldCol && row < gp.maxWorldRow) {
 
             eventRect[map][col][row] = new EventRect();
-            eventRect[map][col][row].x = 23;
-            eventRect[map][col][row].y = 23;
-            eventRect[map][col][row].width = 2;
-            eventRect[map][col][row].height = 2;
+            eventRect[map][col][row].x = 8;
+            eventRect[map][col][row].y = 8;
+            eventRect[map][col][row].width = 32;
+            eventRect[map][col][row].height = 32;
             eventRect[map][col][row].eventRectDefaultX = eventRect[map][col][row].x;
             eventRect[map][col][row].eventRectDefaultY = eventRect[map][col][row].y;
 
@@ -52,36 +53,42 @@ public class EventHandler {
         }
 
         if(canTouchEvent == true){
-            if(hit(0, 3, 4, "right") && gp.player.hasMicrochip >= 2){
+            if((hit(0, 3, 4, "any") == true) && gp.player.hasMicrochip == 2) {
                 teleport(1, 9, 9);
+            }
+            if((hit(1,18,15,"any") == true) && gp.player.hasMicrochip == 2){
+                System.exit(0);
             }
         }
     }
 
     public boolean hit(int map, int col, int row, String reqDirection){
-        boolean hit = false;
+        if(map != gp.currentMap) return false;
 
-        if(map == gp.currentMap){
-            gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
-            gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
-            eventRect[map][col][row].x = col*gp.tileSize + eventRect[map][col][row].x;
-            eventRect[map][col][row].y = row*gp.tileSize + eventRect[map][col][row].y;
+        Rectangle playerArea = new Rectangle(
+                gp.player.worldX + gp.player.solidArea.x,
+                gp.player.worldY + gp.player.solidArea.y,
+                gp.player.solidArea.width,
+                gp.player.solidArea.height
+        );
 
-            if(gp.player.solidArea.intersects(eventRect[map][col][row]) && eventRect[map][col][row].eventDone == false){
-                if(reqDirection.equals("any") || gp.player.direction.equals(reqDirection)){
-                    hit = true;
+        Rectangle eventArea = new Rectangle(
+                col * gp.tileSize + eventRect[map][col][row].x,
+                row * gp.tileSize + eventRect[map][col][row].y,
+                eventRect[map][col][row].width,
+                eventRect[map][col][row].height
+        );
 
-                    previousEventX = gp.player.worldX;
-                    previousEventY = gp.player.worldY;
-                }
+        if(playerArea.intersects(eventArea) && !eventRect[map][col][row].eventDone){
+            if(gp.player.direction.equals(reqDirection) || reqDirection.equals("any")){
+                previousEventX = gp.player.worldX;
+                previousEventY = gp.player.worldY;
+                return true;
             }
-            gp.player.solidArea.x = gp.player.solidAreaDefaultX;
-            gp.player.solidArea.y = gp.player.solidAreaDefaultY;
-            eventRect[map][col][row].x = eventRect[map][col][row].eventRectDefaultX;
-            eventRect[map][col][row].y = eventRect[map][col][row].eventRectDefaultY;
         }
-        return hit;
+        return false;
     }
+
     public void teleport(int map, int col, int row){
 
         gp.currentMap = map;
