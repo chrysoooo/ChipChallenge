@@ -6,10 +6,11 @@ import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.util.Random;
 
-public class Spider extends Entity {
-    public Spider(GamePanel gp) {
+public class Test_NPC extends Entity {
+    public Test_NPC(GamePanel gp) {
         super(gp);
 
+        name = "Test";
         direction = "down";
         speed = 2;
 

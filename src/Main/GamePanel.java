@@ -44,6 +44,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player = new Player(this, keyH);
     public SuperObject obj[] = new SuperObject[40]; // can only display up to -- objects at the same time
     public Entity npc[] = new Entity[5];
+    public Entity monster[] = new Entity[5];
 
     public int mapTileNum[][];
 
@@ -58,7 +59,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame(){
         aSetter.setObject();
-        aSetter.setNPC();
+        aSetter.setNPC(); // NOT NEEDED ONLY FOR LOGIC
+        aSetter.setMonster();
     }
 
     public void startGameThread(){
@@ -101,9 +103,14 @@ public class GamePanel extends JPanel implements Runnable {
     public void update(){
         player.update();
 
-        for(int i = 0; i < npc.length; i++){
-            if(npc[i] != null){
-                npc[i].update();
+        for (Entity value : npc) {
+            if (value != null) {
+                value.update();
+            }
+        }
+        for (Entity entity : monster) {
+            if (entity != null) {
+                entity.update();
             }
         }
     }
@@ -123,6 +130,12 @@ public class GamePanel extends JPanel implements Runnable {
         for(int i = 0; i < npc.length; i++){
             if(npc[i] != null){
                 npc[i].draw(g2);
+            }
+        }
+
+        for(int i = 0; i < monster.length; i++){
+            if(monster[i] != null){
+                monster[i].draw(g2);
             }
         }
 

@@ -79,6 +79,10 @@ public class TileManager {
             tile[11].isIce = true;
             tile[11].iceTurn = "UPPER_LEFT";
 
+            tile[12] = tile[0];
+            tile[13] = tile[0];
+            tile[14] = tile[0];
+
         }catch(IOException e){
             e.printStackTrace();
         }
